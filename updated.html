@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dana's Greeting Widget</title>
+
+    <!-- Delicate cursive font for name -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #E9DDD1;
+            color: #51443D;
+        }
+
+        .widget {
+            background-color: #E9DDD1;
+            padding: 30px 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            margin: auto;
+
+            /* No border or shadow */
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-radius: 0;
+
+            text-align: center;
+        }
+
+        .greet {
+            font-family: Georgia, serif;
+            font-size: 2.4em;
+            font-weight: 400;
+            font-variant-caps: all-petite-caps;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        /* Soft baby pink cursive name */
+        .name {
+            font-family: 'Sacramento', cursive;
+            font-size: 1.4em;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            font-variant-caps: normal;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #D99BB1;
+            display: inline-block;
+        }
+
+        .date {
+            font-family: monospace;
+            font-size: 1.35em;
+            color: #796B62;
+            margin-bottom: 6px;
+        }
+
+        .clock {
+            font-family: monospace;
+            font-size: 1.35em;
+            color: #796B62;
+        }
+
+        @media (max-width: 480px) {
+            .greet {
+                font-size: 1.8em;
+            }
+
+            .date,
+            .clock {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="widget">
+        <div class="greet" id="greet"></div>
+        <div class="date" id="date"></div>
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <script>
+        function displayWidget() {
+            const today = new Date();
+            const hour = today.getHours();
+
+            let greeting;
+
+            if (hour < 12) {
+                greeting = "Good Morning";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon";
+            } else {
+                greeting = "Good Evening";
+            }
+
+            document.getElementById("greet").innerHTML =
+                greeting +
+                ' <span class="name">Dana Zashi</span>';
+
+            const dateOptions = {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            };
+
+            document.getElementById("date").textContent =
+                today.toLocaleDateString(
+                    "en-US", dateOptions
+                );
+
+            document.getElementById("clock").textContent =
+                today.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true
+                });
+        }
+
+        displayWidget();
+        setInterval(displayWidget, 1000);
+    </script>
+
+</body>
+</html>
